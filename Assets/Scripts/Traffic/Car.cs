@@ -9,6 +9,7 @@ namespace Traffic
     public class Car : MonoBehaviour
     {
         private float groundCastDistance = 5;
+        private bool crashed;
         private bool grounded;
         private Rigidbody rigidBody;
 
@@ -38,9 +39,21 @@ namespace Traffic
             this.grounded = Physics.Raycast(transform.position, Vector3.down, groundCastDistance);
         }
 
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject == null)
+                return;
+            
+            // Detect crashes. Find a car on the other object.
+            var otherCar = collision.gameObject.GetComponent<Car>();
+
+            if (otherCar != null)
+                this.crashed = true;
+        }
+
         private void FixedUpdate()
         {
-            if (grounded)
+            if (grounded && !crashed)
                 this.rigidBody.AddForce(this.driveDirection * speed);
         }
 
