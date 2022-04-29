@@ -22,6 +22,8 @@ namespace Traffic
 
         [SerializeField]
         private Vector3 driveDirection;
+
+        public bool IsCrashed => crashed;
         
         private void Awake()
         {
