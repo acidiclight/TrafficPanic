@@ -8,6 +8,8 @@ namespace Traffic
 {
     public class Car : MonoBehaviour
     {
+        private float groundCastDistance = 5;
+        private bool grounded;
         private Rigidbody rigidBody;
 
         [SerializeField]
@@ -26,9 +28,20 @@ namespace Traffic
             this.MustGetComponent(out rigidBody);
         }
 
+        private void Update()
+        {
+            // Kill the car if it's below a certain Y value. This stops the game from having thousands of cars off-screen.
+            if (transform.position.y <= -5)
+                Destroy(this.gameObject);
+            
+            // We can only drive if we're grounded.
+            this.grounded = Physics.Raycast(transform.position, Vector3.down, groundCastDistance);
+        }
+
         private void FixedUpdate()
         {
-            this.rigidBody.AddForce(this.driveDirection * speed);
+            if (grounded)
+                this.rigidBody.AddForce(this.driveDirection * speed);
         }
 
         public void SetDrivingDirection(Vector3 drivingDirection)
