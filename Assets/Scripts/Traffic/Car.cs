@@ -3,6 +3,7 @@ using Core;
 using Helpers;
 using UnityEngine;
 using UnityEngine.Assertions;
+using Random = UnityEngine.Random;
 
 namespace Traffic
 {
@@ -14,6 +15,7 @@ namespace Traffic
         private bool grounded;
         private Rigidbody rigidBody;
         private float acceleration = 1f;
+        private float speed;
 
         [SerializeField]
         private GameStateHolder gameState;
@@ -21,9 +23,12 @@ namespace Traffic
         [Header("Attributes")]
         [SerializeField]
         private float distanceBetweenCars = 2;
-        
+
         [SerializeField]
-        private float speed = 20;
+        private float minSpeed = 10;
+
+        [SerializeField]
+        private float maxSpeed = 20;
 
         [SerializeField]
         private Vector3 driveDirection;
@@ -34,6 +39,11 @@ namespace Traffic
         {
             Assert.IsNotNull(gameState);
             this.MustGetComponent(out rigidBody);
+        }
+
+        private void Start()
+        {
+            speed = Random.Range(minSpeed, maxSpeed);
         }
 
         private void Update()

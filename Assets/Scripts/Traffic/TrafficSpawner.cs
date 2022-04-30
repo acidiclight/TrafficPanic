@@ -1,4 +1,3 @@
-using System;
 using Core;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -7,9 +6,12 @@ namespace Traffic
 {
     public class TrafficSpawner : MonoBehaviour
     {
+        private float timeSinceLastSpawn;
+        private float spawnInterval;
+        
         [SerializeField]
         private GameStateHolder gameState;
-        
+
         [SerializeField]
         private TrafficManagerSettings trafficSettings;
 
@@ -23,6 +25,11 @@ namespace Traffic
         {
             Assert.IsNotNull(gameState);
             Assert.IsNotNull(trafficSettings);
+        }
+
+        private void Start()
+        {
+            spawnInterval = Random.Range(1, 9);
         }
 
         private void Update()
@@ -43,7 +50,14 @@ namespace Traffic
             }
 
             if (canSpawn)
-                SpawnCar();
+            {
+                timeSinceLastSpawn += Time.deltaTime;
+                if (timeSinceLastSpawn >= spawnInterval)
+                {
+                    timeSinceLastSpawn = 0;
+                    SpawnCar();
+                }
+            }
 
 
         }

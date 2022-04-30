@@ -616,6 +616,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8883979469380769817, guid: 6a8f2199c30542975b595f649640e456, type: 3}
+      propertyPath: spawnInterval
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8883979469380769817, guid: 6a8f2199c30542975b595f649640e456, type: 3}
       propertyPath: drivingDirection.x
       value: 0
       objectReference: {fileID: 0}
@@ -684,6 +688,10 @@ PrefabInstance:
     - target: {fileID: 8883979469380769816, guid: 6a8f2199c30542975b595f649640e456, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8883979469380769817, guid: 6a8f2199c30542975b595f649640e456, type: 3}
+      propertyPath: spawnInterval
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8883979469380769817, guid: 6a8f2199c30542975b595f649640e456, type: 3}
       propertyPath: drivingDirection.x
@@ -943,6 +951,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8883979469380769817, guid: 6a8f2199c30542975b595f649640e456, type: 3}
+      propertyPath: spawnInterval
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8883979469380769817, guid: 6a8f2199c30542975b595f649640e456, type: 3}
       propertyPath: drivingDirection.x
       value: 0
       objectReference: {fileID: 0}
@@ -1103,6 +1115,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8883979469380769817, guid: 6a8f2199c30542975b595f649640e456, type: 3}
+      propertyPath: spawnInterval
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 8883979469380769823, guid: 6a8f2199c30542975b595f649640e456, type: 3}
       propertyPath: m_Name
       value: Traffic Spawner (2)
@@ -1222,6 +1238,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8883979469380769817, guid: 6a8f2199c30542975b595f649640e456, type: 3}
+      propertyPath: spawnInterval
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 8883979469380769823, guid: 6a8f2199c30542975b595f649640e456, type: 3}
       propertyPath: m_Name
       value: Traffic Spawner (1)
@@ -1340,6 +1360,10 @@ PrefabInstance:
     - target: {fileID: 8883979469380769816, guid: 6a8f2199c30542975b595f649640e456, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8883979469380769817, guid: 6a8f2199c30542975b595f649640e456, type: 3}
+      propertyPath: spawnInterval
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8883979469380769823, guid: 6a8f2199c30542975b595f649640e456, type: 3}
       propertyPath: m_Name
