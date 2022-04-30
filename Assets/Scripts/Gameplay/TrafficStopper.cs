@@ -9,6 +9,7 @@ namespace Gameplay
     {
         private readonly List<Car> carsInArea = new List<Car>();
         private BoxCollider collider;
+        private bool isActive = true;
         
         private void Awake()
         {
@@ -25,7 +26,9 @@ namespace Gameplay
                 return;
 
             this.carsInArea.Add(car);
-            car.StopCar();
+            
+            if (isActive)
+                car.StopCar();
         }
         
         private void OnTriggerExit(Collider other)
@@ -38,6 +41,27 @@ namespace Gameplay
                 return;
 
             this.carsInArea.Remove(car);
+        }
+
+        public void SetActive(bool shouldBeActive)
+        {
+            isActive = shouldBeActive;
+        }
+
+        public void StopAllTraffic()
+        {
+            foreach (var car in carsInArea)
+            {
+                car.StopCar();
+            }
+        }
+
+        public void StartAllTraffic()
+        {
+            foreach (var car in carsInArea)
+            {
+                car.SetAcceleration(1);
+            }
         }
     }
 }
