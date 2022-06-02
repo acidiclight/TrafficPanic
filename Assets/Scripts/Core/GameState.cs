@@ -124,5 +124,11 @@ namespace Core
             // Reset the game state.
             this.currentState = CurrentGameState.MainMenu;
         }
+
+        public void RemoveCarFromLevel(Car car)
+        {
+            if (!carsInLevel.Contains(car)) return;
+            carsInLevel.Remove(car);
+        }
     }
 }
