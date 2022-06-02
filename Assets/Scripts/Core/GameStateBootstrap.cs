@@ -17,11 +17,5 @@ namespace Core
             Debug.Log("Initializing game state...");
             gameState.Value = new GameState();
         }
-
-        private void Start()
-        {
-            // TODO: Move this to a loading system eventually.
-            SceneManager.LoadSceneAsync(SceneNames.TheIntersection, LoadSceneMode.Additive);
-        }
     }
 }
