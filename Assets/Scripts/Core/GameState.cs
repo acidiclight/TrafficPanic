@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Traffic;
+using UnityEditor.Connect;
 using UnityEngine;
 
 namespace Core
@@ -8,6 +9,7 @@ namespace Core
     public class GameState
     {
         private readonly List<Car> carsInLevel = new List<Car>();
+        private readonly List<int> carsToRemove = new List<int>();
         private CurrentGameState currentState;
         private long currentScore;
         private long highScore;
@@ -74,12 +76,24 @@ namespace Core
 
         internal void Update()
         {
+            for (var i = carsToRemove.Count - 1; i >= 0; i--)
+            {
+                var car = carsToRemove[i];
+                this.carsInLevel.RemoveAt(car);
+                this.carsToRemove.RemoveAt(i);
+            }
+            
             if (this.currentState == CurrentGameState.Playing)
             {
                 for (var i = 0; i < carsInLevel.Count; i++)
                 {
                     var car = carsInLevel[i];
 
+                    if (car == null)
+                    {
+                        carsToRemove.Add(i);
+                    }
+                    
                     if (car.IsCrashed)
                     {
                         this.CurrentState = CurrentGameState.GameOver;
@@ -87,6 +101,28 @@ namespace Core
                     }
                 }
             }
+        }
+
+        public void Nuke()
+        {
+            // Destroy all cars.
+            for (var i = carsInLevel.Count - 1; i >= 0; i--)
+            {
+                var car = carsInLevel[i];
+
+                // Destroy the car if it isn't already destroyed.
+                if (car != null)
+                    UnityEngine.Object.Destroy(car.gameObject);
+                
+                carsInLevel.RemoveAt(i);
+            }
+            
+            // Reset the score, but not the high score.
+            this.currentScore = 0;
+            this.ScoreUpdated?.Invoke(this.currentScore, true);
+
+            // Reset the game state.
+            this.currentState = CurrentGameState.MainMenu;
         }
     }
 }
