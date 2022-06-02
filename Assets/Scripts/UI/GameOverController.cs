@@ -2,6 +2,7 @@
 using System.Collections;
 using Core;
 using Sanity;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
@@ -20,6 +21,9 @@ namespace UI
 
         [Header("UI")]
         [SerializeField]
+        private TextMeshProUGUI finalScore;
+        
+        [SerializeField]
         private Button tryAgainButton;
         
         [SerializeField]
@@ -33,6 +37,7 @@ namespace UI
             Assert.IsNotNull(gameState);
             Assert.IsNotNull(player);
             
+            Assert.IsNotNull(finalScore);
             Assert.IsNotNull(tryAgainButton);
             Assert.IsNotNull(mainMenuButton);
             Assert.IsNotNull(quitButton);
@@ -44,6 +49,11 @@ namespace UI
             
             tryAgainButton.onClick.AddListener(HandleTryAgainButton);
             mainMenuButton.onClick.AddListener(HandleMainMenuButton);
+        }
+
+        private void OnEnable()
+        {
+            this.finalScore.text = $"Final Score: {gameState.Value.Score}";
         }
 
         private void HandleMainMenuButton()
