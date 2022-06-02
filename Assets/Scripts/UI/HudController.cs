@@ -43,6 +43,8 @@ namespace UI
 
         private void OnEnable()
         {
+            this.scoreText.text = $"Score: {gameState.Value.Score}";
+            scoreText.color = Color.white;
             gameState.Value.ScoreUpdated += UpdateScore;
             gameState.Value.CurrentStateChanged += HandleCurrentStateChanged;
         }
