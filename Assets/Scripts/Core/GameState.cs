@@ -1,10 +1,13 @@
 using System;
+using System.Collections.Generic;
+using Traffic;
 using UnityEngine;
 
 namespace Core
 {
     public class GameState
     {
+        private readonly List<Car> carsInLevel = new List<Car>();
         private CurrentGameState currentState;
         private long currentScore;
         private long highScore;
@@ -12,7 +15,7 @@ namespace Core
         public CurrentGameState CurrentState
         {
             get => currentState;
-            private set
+            set
             {
                 if (this.currentState != value)
                 {
@@ -61,5 +64,29 @@ namespace Core
                 : "Adding ") + $"{pointsToAdd} to the score. Score is now {currentScore}");
         }
 
+        public void ReportNewCar(Car car)
+        {
+            if (car is null) return;
+            if (carsInLevel.Contains(car)) return;
+            
+            this.carsInLevel.Add(car);
+        }
+
+        internal void Update()
+        {
+            if (this.currentState == CurrentGameState.Playing)
+            {
+                for (var i = 0; i < carsInLevel.Count; i++)
+                {
+                    var car = carsInLevel[i];
+
+                    if (car.IsCrashed)
+                    {
+                        this.CurrentState = CurrentGameState.GameOver;
+                        return;
+                    }
+                }
+            }
+        }
     }
 }

@@ -9,12 +9,14 @@ namespace Sanity
         public readonly MenuController MainMenu;
         public readonly AboutController AboutScreen;
         public readonly HudController Hud;
+        public readonly GameOverController GameOverScreen;
         
-        public PlayerInstance(MenuController mainMenu, AboutController about, HudController hud)
+        public PlayerInstance(MenuController mainMenu, AboutController about, HudController hud, GameOverController gameOver)
         {
             this.MainMenu = mainMenu;
             this.AboutScreen = about;
             this.Hud = hud;
+            this.GameOverScreen = gameOver;
         }
     }
 }

@@ -34,6 +34,9 @@ namespace Traffic
 
         private void Update()
         {
+            if (gameState.Value.CurrentState != CurrentGameState.Playing)
+                return;
+            
             // Check for nearby cars. Can't spawn a car if there's already one nearby, otherwise that'll cause a traffic accident
             // and unintentionally cause a Game Over.
             var overlappingObjects = Physics.OverlapBox(this.transform.position, this.carDetectionRange);
@@ -72,6 +75,9 @@ namespace Traffic
             
             // Be sure to set the driving direction.
             instance.SetDrivingDirection(drivingDirection);
+            
+            // Report the car to the game.
+            this.gameState.Value.ReportNewCar(instance);
         }
     }
 }

@@ -71,6 +71,9 @@ namespace UI
             while (!loadOperation.isDone)
                 yield return null;
 
+            // Change to the Playing state.
+            this.gameState.Value.CurrentState = CurrentGameState.Playing;
+            
             // Make the play button work again, BUT, disable the menu.
             playButton.enabled = true;
             this.gameObject.SetActive(false);

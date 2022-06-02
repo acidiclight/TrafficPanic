@@ -17,5 +17,13 @@ namespace Core
             Debug.Log("Initializing game state...");
             gameState.Value = new GameState();
         }
+
+        private void Update()
+        {
+            if (gameState.Value != null)
+            {
+                gameState.Value.Update();
+            }
+        }
     }
 }

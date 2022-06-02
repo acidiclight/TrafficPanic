@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Core;
+using Sanity;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -13,6 +15,9 @@ namespace UI
         [Header("dependencies")]
         [SerializeField]
         private GameStateHolder gameState;
+
+        [SerializeField]
+        private PlayerHolder player;
         
         [Header("Prefabs")]
         [SerializeField]
@@ -31,6 +36,7 @@ namespace UI
         private void Awake()
         {
             Assert.IsNotNull(gameState);
+            Assert.IsNotNull(player);
             Assert.IsNotNull(trafficLightPrefab);
             Assert.IsNotNull(scoreText);
         }
@@ -38,6 +44,23 @@ namespace UI
         private void OnEnable()
         {
             gameState.Value.ScoreUpdated += UpdateScore;
+            gameState.Value.CurrentStateChanged += HandleCurrentStateChanged;
+        }
+
+        private void OnDisable()
+        {
+            gameState.Value.ScoreUpdated -= UpdateScore;
+            gameState.Value.CurrentStateChanged -= HandleCurrentStateChanged;
+        }
+
+        private void HandleCurrentStateChanged(CurrentGameState newState)
+        {
+            switch (newState)
+            {
+                case CurrentGameState.GameOver:
+                    ShowGameOverScreen();
+                    break;
+            }
         }
 
         private void UpdateScore(long score, bool isRemovingPoints)
@@ -71,6 +94,12 @@ namespace UI
             var trafficLight = Instantiate(trafficLightPrefab, this.transform);
             trafficLight.AssociateWithLevelObject(levelArea);
             return trafficLight;
+        }
+
+        private void ShowGameOverScreen()
+        {
+            player.Value.GameOverScreen.gameObject.SetActive(true);
+            this.gameObject.SetActive(false);
         }
     }
 }
