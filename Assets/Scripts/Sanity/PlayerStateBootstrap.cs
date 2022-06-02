@@ -20,6 +20,9 @@ namespace Sanity
 
         [SerializeField]
         private MenuController menuPrefab;
+
+        [SerializeField]
+        private HudController hudPrefab;
         
         private void Awake()
         {
@@ -27,6 +30,7 @@ namespace Sanity
             Assert.IsNotNull(uiRootPrefab);
             Assert.IsNotNull(menuPrefab);
             Assert.IsNotNull(aboutScreenPrefab);
+            Assert.IsNotNull(hudPrefab);
         }
 
         private void Start()
@@ -34,10 +38,12 @@ namespace Sanity
             var uiRoot = Instantiate(uiRootPrefab);
             var menu = Instantiate(menuPrefab, uiRoot.transform);
             var about = Instantiate(aboutScreenPrefab, uiRoot.transform);
-            this.playerHolder.Value = new PlayerInstance(menu, about);
+            var hud = Instantiate(hudPrefab, uiRoot.transform);
+            this.playerHolder.Value = new PlayerInstance(menu, about, hud);
 
             menu.gameObject.SetActive(true);
             about.gameObject.SetActive(false);
+            hud.gameObject.SetActive(false);
         }
     }
 }

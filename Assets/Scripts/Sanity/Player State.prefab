@@ -47,3 +47,4 @@ MonoBehaviour:
   uiRootPrefab: {fileID: 5895019984050277532, guid: 662f03abd5e3f01488149fc31fe4cefe, type: 3}
   aboutScreenPrefab: {fileID: 2796707080333800582, guid: e2e516c268398f345b8115c710905563, type: 3}
   menuPrefab: {fileID: 6216390903515786313, guid: fba9c83f00eb6524b9bfbf31ed760c64, type: 3}
+  hudPrefab: {fileID: 154364220745136608, guid: 1d121c3b07e7ebe4c92394db8f6687f7, type: 3}

@@ -63,6 +63,9 @@ namespace UI
             // Disable the Play button.
             playButton.enabled = false;
 
+            // Activate the HUD
+            player.Value.Hud.gameObject.SetActive(true);
+
             // Load into the intersection.
             var loadOperation = SceneManager.LoadSceneAsync(SceneNames.TheIntersection, LoadSceneMode.Additive);
             while (!loadOperation.isDone)
