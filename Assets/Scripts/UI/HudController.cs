@@ -65,5 +65,12 @@ namespace UI
             this.scoreText.color = Color.white;
             this.flashCoroutine = null;
         }
+
+        public TrafficLightController SpawnTrafficLightHud(Transform levelArea)
+        {
+            var trafficLight = Instantiate(trafficLightPrefab, this.transform);
+            trafficLight.AssociateWithLevelObject(levelArea);
+            return trafficLight;
+        }
     }
 }

@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using CustomInputs;
 using Helpers;
+using Sanity;
 using Traffic;
+using UI;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -14,12 +16,19 @@ namespace Gameplay
         private readonly List<Car> carsInArea = new List<Car>();
         private BoxCollider collider;
         private GameInputs gameInputs;
+        private TrafficLightController hudUi;
 
+        [Header("Dependencies")]
+        [SerializeField]
+        private PlayerHolder player;
+        
+        [Header("Level")]
         [SerializeField]
         private TrafficStopper stopper;
         
         private void Awake()
         {
+            Assert.IsNotNull(player);
             Assert.IsNotNull(stopper);
             this.MustGetComponent(out collider);
             gameInputs = new GameInputs();
@@ -28,11 +37,16 @@ namespace Gameplay
         private void Start()
         {
             gameInputs.Enable();
+
+            this.hudUi = player.Value.Hud.SpawnTrafficLightHud(this.transform);
         }
 
         private void OnDestroy()
         {
             gameInputs.Disable();
+
+            Destroy(hudUi.gameObject);
+            hudUi = null;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -68,6 +82,11 @@ namespace Gameplay
             {
                 Toggle();
             }
+
+            if (hudUi == null)
+                return;
+
+            hudUi.IsGreen = !isActive;
         }
 
         private void Toggle()

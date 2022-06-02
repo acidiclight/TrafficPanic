@@ -8,6 +8,8 @@ namespace UI
 {
     public class TrafficLightController : MonoBehaviour
     {
+        private Camera cam;
+        private Transform associatedTransform;
         private RectTransform rect;
         private bool isGreen;
 
@@ -37,10 +39,36 @@ namespace UI
             this.MustGetComponent(out rect);
         }
 
+        private void Start()
+        {
+            UpdateLight();
+            
+            cam = Camera.main;
+            Assert.IsNotNull(cam);
+        }
+
         private void UpdateLight()
         {
             redLight.enabled = !isGreen;
             greenLight.enabled = isGreen;
+        }
+
+        private void Update()
+        {
+            if (associatedTransform is null) return;
+
+            var parent = rect.parent as RectTransform;
+            var worldPos = associatedTransform.position;
+            var screenPos = cam.WorldToScreenPoint(worldPos);
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(parent, screenPos, cam, out var actualPos);
+
+            rect.anchoredPosition = actualPos;
+
+        }
+
+        public void AssociateWithLevelObject(Transform levelObject)
+        {
+            this.associatedTransform = levelObject;
         }
     }
 }
