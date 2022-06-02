@@ -45,8 +45,11 @@ namespace Gameplay
         {
             gameInputs.Disable();
 
-            Destroy(hudUi.gameObject);
-            hudUi = null;
+            if (hudUi != null)
+            {
+                Destroy(hudUi.gameObject);
+                hudUi = null;
+            }
         }
 
         private void OnTriggerEnter(Collider other)
